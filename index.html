@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Werner Heisenberg | Universo Quântico</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.2);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, #1e293b 0%, var(--bg-color) 100%);
+            border-bottom: 1px solid #334155;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: var(--text-main);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin: 10px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .formula-box {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 25px 0;
+            border-left: 4px solid var(--accent);
+            letter-spacing: 2px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        li strong {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Werner Heisenberg</h1>
+        <p>O Arquiteto da Incerteza Quântica</p>
+    </header>
+
+    <div class="main-container">
+        <section>
+            <h2>Quem foi?</h2>
+            <p><strong>Werner Karl Heisenberg</strong> (1901 – 1976) foi um físico teórico alemão e um dos pais fundadores da <span class="highlight">Mecânica Quântica</span>. Ele revolucionou a forma como entendemos a realidade no nível subatômico, recebendo o <strong>Prêmio Nobel de Física em 1932</strong> por suas criações e descobertas fundamentais.</p>
+        </section>
+
+        <section>
+            <h2>O Princípio da Incerteza</h2>
+            <p>Sua contribuição mais famosa é o <strong>Princípio da Incerteza</strong> (1927). Ele estabelece um limite fundamental da física: não podemos medir simultaneamente, com precisão absoluta, certas propriedades de uma partícula, como sua posição e seu momento linear (velocidade multiplicada pela massa).</p>
+            
+            <div class="formula-box">
+                Δx · Δp ≥ ℏ / 2
+            </div>
+
+            <p>Em termos simples: quanto mais tentamos fixar o local exato de uma partícula (Δx), menos sabemos sobre a rapidez e a direção para onde ela está indo (Δp).</p>
+        </section>
+
+        <section>
+            <h2>Grandes Feitos</h2>
+            <ul>
+                <li><strong>Mecânica Matricial (1925):</strong> A primeira formulação matemática completa e lógica da mecânica quântica.</li>
+                <li><strong>Prêmio Nobel de Física:</strong> Conquistado com apenas 31 anos de idade.</li>
+                <li><strong>Estrutura Atômica:</strong> Propôs o modelo de que o núcleo atômico é composto especificamente por prótons e nêutrons.</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>Página criada para fins estéticos e informativos sobre a história da ciência moderna.</p>
+    </footer>
+
+</body>
+</html>
