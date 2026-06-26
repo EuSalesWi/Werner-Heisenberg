@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Werner Heisenberg | Universo Quântico</title>
+    <title>Werner Heisenberg | Universo Quântico + Walter White</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.2);
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --border-color: #334155;
         }
 
         body {
@@ -25,41 +32,94 @@
 
         header {
             text-align: center;
-            padding: 60px 20px;
-            background: radial-gradient(circle at center, #1e293b 0%, var(--bg-color) 100%);
-            border-bottom: 1px solid #334155;
+            padding: 50px 20px 30px;
+            background: radial-gradient(circle at 30% 30%, #1e293b 0%, var(--bg-color) 100%);
+            border-bottom: 1px solid var(--border-color);
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.1rem;
             margin: 0;
             color: var(--text-main);
-            text-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin: 10px 0 0 0;
-            font-weight: 500;
-            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--accent-glow);
             letter-spacing: 1px;
         }
 
+        header p {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin: 8px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .main-container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 1000px;
+            margin: 30px auto;
             padding: 0 20px;
+        }
+
+        /* seção dupla de imagens */
+        .image-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .image-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 16px 16px 20px;
+            flex: 1 1 240px;
+            max-width: 300px;
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.6);
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .image-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 28px -10px rgba(0, 0, 0, 0.8);
+            border-color: var(--accent);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 14px;
+            background: #0b1424;
+            display: block;
+            border: 1px solid #2a3a52;
+        }
+
+        .image-card .caption {
+            margin-top: 14px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 0.3px;
+        }
+
+        .image-card .sub-caption {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
         }
 
         section {
             background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s;
+            padding: 28px 32px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+            transition: transform 0.15s;
         }
 
         section:hover {
@@ -68,55 +128,108 @@
 
         h2 {
             color: var(--accent);
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--accent);
+            padding-left: 16px;
         }
 
         p {
             color: var(--text-main);
             font-size: 1.05rem;
+            margin-bottom: 14px;
         }
 
         .highlight {
             color: var(--accent);
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .formula-box {
             background-color: #0f172a;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 20px 16px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-family: 'Courier New', Courier, monospace;
-            margin: 25px 0;
-            border-left: 4px solid var(--accent);
+            margin: 22px 0;
+            border-left: 5px solid var(--accent);
             letter-spacing: 2px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+            color: #e2e8f0;
         }
 
         ul {
-            padding-left: 20px;
-            margin: 0;
+            padding-left: 24px;
+            margin: 8px 0 4px;
         }
 
         li {
             margin-bottom: 12px;
             color: var(--text-main);
+            font-size: 1.02rem;
         }
 
         li strong {
             color: var(--accent);
         }
 
+        /* curiosidade extra */
+        .pop-culture-note {
+            background: #1a253b;
+            border-left: 4px solid #fbbf24;
+            padding: 14px 22px;
+            border-radius: 10px;
+            margin-top: 18px;
+            font-size: 0.98rem;
+            color: #e2e8f0;
+        }
+
+        .pop-culture-note strong {
+            color: #fbbf24;
+        }
+
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 36px 20px 28px;
             color: var(--text-muted);
             font-size: 0.9rem;
-            border-top: 1px solid #334155;
-            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        /* responsivo */
+        @media (max-width: 650px) {
+            header h1 {
+                font-size: 2.4rem;
+            }
+            .image-card {
+                flex: 1 1 180px;
+                max-width: 220px;
+            }
+            section {
+                padding: 20px 18px;
+            }
+            .formula-box {
+                font-size: 1.3rem;
+                padding: 16px 10px;
+            }
+            h2 {
+                font-size: 1.5rem;
+                padding-left: 12px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .image-card {
+                flex: 1 1 140px;
+                max-width: 170px;
+                padding: 10px 10px 14px;
+            }
+            .image-card .caption {
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -128,11 +241,39 @@
     </header>
 
     <div class="main-container">
+
+        <!-- IMAGENS: Físico + Walter White (usando imagens locais) -->
+        <div class="image-showcase">
+            <!-- Werner Heisenberg (físico) -->
+            <div class="image-card">
+                <img 
+                    src="imagens/fisico-heisenberg.jpg" 
+                    alt="Werner Heisenberg, físico teórico alemão"
+                    loading="lazy"
+                >
+                <div class="caption">⚛️ Werner Heisenberg</div>
+                <div class="sub-caption">Físico • Nobel 1932</div>
+            </div>
+
+            <!-- Walter White (personagem) -->
+            <div class="image-card">
+                <img 
+                    src="imagens/walter-withe.jpg" 
+                    alt="Walter White, personagem de Breaking Bad"
+                    loading="lazy"
+                >
+                <div class="caption">🧪 Walter White</div>
+                <div class="sub-caption">“Heisenberg” — Breaking Bad</div>
+            </div>
+        </div>
+
+        <!-- Seção Quem foi? (mantida) -->
         <section>
             <h2>Quem foi?</h2>
             <p><strong>Werner Karl Heisenberg</strong> (1901 – 1976) foi um físico teórico alemão e um dos pais fundadores da <span class="highlight">Mecânica Quântica</span>. Ele revolucionou a forma como entendemos a realidade no nível subatômico, recebendo o <strong>Prêmio Nobel de Física em 1932</strong> por suas criações e descobertas fundamentais.</p>
         </section>
 
+        <!-- Princípio da Incerteza -->
         <section>
             <h2>O Princípio da Incerteza</h2>
             <p>Sua contribuição mais famosa é o <strong>Princípio da Incerteza</strong> (1927). Ele estabelece um limite fundamental da física: não podemos medir simultaneamente, com precisão absoluta, certas propriedades de uma partícula, como sua posição e seu momento linear (velocidade multiplicada pela massa).</p>
@@ -144,6 +285,7 @@
             <p>Em termos simples: quanto mais tentamos fixar o local exato de uma partícula (Δx), menos sabemos sobre a rapidez e a direção para onde ela está indo (Δp).</p>
         </section>
 
+        <!-- Grandes Feitos -->
         <section>
             <h2>Grandes Feitos</h2>
             <ul>
@@ -152,10 +294,21 @@
                 <li><strong>Estrutura Atômica:</strong> Propôs o modelo de que o núcleo atômico é composto especificamente por prótons e nêutrons.</li>
             </ul>
         </section>
+
+        <!-- Toque cultural: Walter White / Breaking Bad -->
+        <section style="border-left: 3px solid #fbbf24;">
+            <h2 style="border-left-color: #fbbf24; color: #fbbf24;">🐚 Heisenberg na cultura pop</h2>
+            <p>O nome <span class="highlight">Heisenberg</span> transcendeu a física e tornou-se um ícone cultural. Na série <strong>Breaking Bad</strong>, o personagem <strong>Walter White</strong> adota o pseudônimo <em>“Heisenberg”</em> — uma referência direta ao físico, associando a genialidade e o lado sombrio da ciência.</p>
+            <div class="pop-culture-note">
+                <strong>🎬 Curiosidade:</strong> O criador da série, Vince Gilligan, escolheu o nome “Heisenberg” justamente pelo princípio da incerteza, refletindo a imprevisibilidade do protagonista e as consequências incertas de suas escolhas.
+            </div>
+        </section>
+
     </div>
 
     <footer>
-        <p>Página criada para fins estéticos e informativos sobre a história da ciência moderna.</p>
+        <p>Página criada para fins estéticos e informativos sobre a história da ciência moderna.<br>
+        <span style="color: #64748b;">Werner Heisenberg (físico) • Walter White (personagem) — dois lados do mesmo nome.</span></p>
     </footer>
 
 </body>
