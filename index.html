@@ -19,6 +19,11 @@
             --accent: #38bdf8;
             --accent-glow: rgba(56, 189, 248, 0.25);
             --border-color: #334155;
+            --like-color: #e11d48;
+            --like-hover: #f43f5e;
+            --gold: #fbbf24;
+            --deslike-color: #64748b;
+            --deslike-hover: #94a3b8;
         }
 
         body {
@@ -60,31 +65,68 @@
             padding: 0 20px;
         }
 
-        /* seção dupla de imagens */
+        /* ARTIGOS - cada post é um article independente */
+        article {
+            background-color: var(--card-bg);
+            padding: 28px 32px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+            transition: transform 0.15s, border-color 0.3s;
+        }
+
+        article:hover {
+            transform: translateY(-2px);
+        }
+
+        article .post-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        article .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--bg-color);
+            flex-shrink: 0;
+        }
+
+        article .post-author {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        article .post-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
         .image-showcase {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
 
         .image-card {
-            background: var(--card-bg);
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 16px 16px 20px;
-            flex: 1 1 240px;
-            max-width: 300px;
-            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.6);
-            transition: transform 0.25s ease, box-shadow 0.3s;
+            border-radius: 14px;
+            padding: 12px;
+            flex: 1 1 200px;
+            max-width: 260px;
             text-align: center;
-        }
-
-        .image-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 28px -10px rgba(0, 0, 0, 0.8);
-            border-color: var(--accent);
         }
 
         .image-card img {
@@ -92,43 +134,28 @@
             height: auto;
             aspect-ratio: 1 / 1;
             object-fit: cover;
-            border-radius: 14px;
+            border-radius: 10px;
             background: #0b1424;
             display: block;
             border: 1px solid #2a3a52;
         }
 
         .image-card .caption {
-            margin-top: 14px;
+            margin-top: 10px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent);
-            letter-spacing: 0.3px;
         }
 
         .image-card .sub-caption {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 4px;
-        }
-
-        section {
-            background-color: var(--card-bg);
-            padding: 28px 32px;
-            border-radius: 16px;
-            margin-bottom: 28px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.4);
-            transition: transform 0.15s;
-        }
-
-        section:hover {
-            transform: translateY(-2px);
+            font-size: 0.85rem;
+            margin-top: 2px;
         }
 
         h2 {
             color: var(--accent);
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-top: 0;
             margin-bottom: 14px;
             border-left: 4px solid var(--accent);
@@ -137,7 +164,7 @@
 
         p {
             color: var(--text-main);
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             margin-bottom: 14px;
         }
 
@@ -148,12 +175,12 @@
 
         .formula-box {
             background-color: #0f172a;
-            padding: 20px 16px;
+            padding: 18px 16px;
             border-radius: 12px;
             text-align: center;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-family: 'Courier New', Courier, monospace;
-            margin: 22px 0;
+            margin: 18px 0;
             border-left: 5px solid var(--accent);
             letter-spacing: 2px;
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -168,64 +195,182 @@
         li {
             margin-bottom: 12px;
             color: var(--text-main);
-            font-size: 1.02rem;
+            font-size: 1rem;
         }
 
         li strong {
             color: var(--accent);
         }
 
-        /* curiosidade extra */
         .pop-culture-note {
             background: #1a253b;
-            border-left: 4px solid #fbbf24;
+            border-left: 4px solid var(--gold);
             padding: 14px 22px;
             border-radius: 10px;
             margin-top: 18px;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             color: #e2e8f0;
         }
 
         .pop-culture-note strong {
-            color: #fbbf24;
+            color: var(--gold);
         }
 
-        /* ESTILIZAÇÃO DO BOTÃO DE LIKES (Novidade da Aula 6) */
-        .like-container {
-            text-align: center;
-            margin: 30px 0;
+        /* ===== INTERAÇÕES DO POST ===== */
+        .post-interactions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .btn-like, .btn-deslike {
+            border: none;
+            padding: 8px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-like {
-            background-color: #e11d48;
+            background-color: var(--like-color);
             color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
-            transition: transform 0.1s ease, background-color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 2px 12px rgba(225, 29, 72, 0.25);
         }
 
-        .btn-like:hover {
-            background-color: #f43f5e;
-            transform: scale(1.05);
+        .btn-like:hover:not(:disabled) {
+            background-color: var(--like-hover);
+            transform: scale(1.04);
+            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.4);
         }
 
-        .btn-like:active {
+        .btn-like:active:not(:disabled) {
             transform: scale(0.95);
         }
 
-        .like-count {
+        .btn-like.liked {
+            background-color: #be123c;
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .btn-like:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-like .like-icon {
+            font-size: 1.1rem;
+        }
+
+        .btn-deslike {
+            background-color: var(--deslike-color);
+            color: white;
+            box-shadow: 0 2px 12px rgba(100, 116, 139, 0.2);
+        }
+
+        .btn-deslike:hover:not(:disabled) {
+            background-color: var(--deslike-hover);
+            transform: scale(1.04);
+        }
+
+        .btn-deslike:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .btn-deslike.desliked {
+            background-color: #4a5568;
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .btn-deslike:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .like-count, .deslike-count {
             background-color: rgba(0, 0, 0, 0.2);
-            padding: 2px 10px;
+            padding: 0 12px;
             border-radius: 20px;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            min-width: 24px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .post-feedback {
+            font-size: 0.85rem;
+            color: var(--gold);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            margin-left: 4px;
+        }
+
+        .post-feedback.show {
+            opacity: 1;
+        }
+
+        /* ===== ESTATÍSTICAS GERAIS ===== */
+        .stats-box {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0 30px;
+            padding: 16px 20px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .stats-item {
+            text-align: center;
+        }
+
+        .stats-item .number {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stats-item .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Botão de reset geral */
+        .reset-container {
+            text-align: center;
+            margin: 10px 0 20px;
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--accent);
+            color: var(--text-main);
         }
 
         footer {
@@ -237,36 +382,50 @@
             margin-top: 40px;
         }
 
-        /* responsivo */
+        /* ===== RESPONSIVO ===== */
         @media (max-width: 650px) {
             header h1 {
-                font-size: 2.4rem;
+                font-size: 2.2rem;
+            }
+            article {
+                padding: 20px 16px;
             }
             .image-card {
-                flex: 1 1 180px;
-                max-width: 220px;
-            }
-            section {
-                padding: 20px 18px;
-            }
-            .formula-box {
-                font-size: 1.3rem;
-                padding: 16px 10px;
+                flex: 1 1 150px;
+                max-width: 200px;
             }
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 padding-left: 12px;
+            }
+            .formula-box {
+                font-size: 1.2rem;
+                padding: 14px 10px;
+            }
+            .post-interactions {
+                gap: 12px;
+            }
+            .btn-like, .btn-deslike {
+                padding: 6px 14px;
+                font-size: 0.85rem;
+            }
+            .stats-box {
+                gap: 20px;
             }
         }
 
         @media (max-width: 450px) {
             .image-card {
-                flex: 1 1 140px;
-                max-width: 170px;
-                padding: 10px 10px 14px;
+                flex: 1 1 120px;
+                max-width: 160px;
+                padding: 8px;
             }
             .image-card .caption {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
+            }
+            .btn-like, .btn-deslike {
+                font-size: 0.8rem;
+                padding: 5px 12px;
             }
         }
     </style>
@@ -280,57 +439,113 @@
 
     <div class="main-container">
 
-        <div class="image-showcase">
-            <div class="image-card">
-                <img src="imagens/fisico-heisenberg.jpg" alt="Werner Heisenberg, físico teórico alemão" loading="lazy">
-                <div class="caption">Werner Heisenberg</div>
-                <div class="sub-caption">Físico • Nobel 1932</div>
+        <!-- ===== ESTATÍSTICAS GERAIS ===== -->
+        <div class="stats-box">
+            <div class="stats-item">
+                <div class="number" id="totalLikes">0</div>
+                <div class="label">Total de Likes</div>
             </div>
-
-            <div class="image-card">
-                <img src="imagens/walter-withe.jpg" alt="Walter White, personagem de Breaking Bad" loading="lazy">
-                <div class="caption">Walter White</div>
-                <div class="sub-caption">“Heisenberg” — Breaking Bad</div>
+            <div class="stats-item">
+                <div class="number" id="totalDeslikes">0</div>
+                <div class="label">Total de Deslikes</div>
+            </div>
+            <div class="stats-item">
+                <div class="number" id="interacoesTotais">0</div>
+                <div class="label">Interações Totais</div>
             </div>
         </div>
 
-        <section>
-            <h2>Quem foi?</h2>
-            <p><strong>Werner Karl Heisenberg</strong> (1901 – 1976) foi um físico teórico alemão e um dos pais fundadores da <span class="highlight">Mecânica Quântica</span>. Ele revolucionou a forma como entendemos a realidade no nível subatômico, recebendo o <strong>Prêmio Nobel de Física em 1932</strong> por suas criações e descobertas fundamentais.</p>
-        </section>
+        <!-- ===== POST 1: WERNER HEISENBERG ===== -->
+        <article id="post1">
+            <div class="post-header">
+                <div class="post-avatar">WH</div>
+                <div>
+                    <div class="post-author">Werner Heisenberg</div>
+                    <div class="post-date">Físico Teórico • Nobel 1932</div>
+                </div>
+            </div>
 
-        <section>
             <h2>O Princípio da Incerteza</h2>
-            <p>Sua contribuição mais famosa é o <strong>Princípio da Incerteza</strong> (1927). Ele estabelece um limite fundamental da física: não podemos medir simultaneamente, com precisão absoluta, certas propriedades de uma partícula, como sua posição e seu momento linear (velocidade multiplicada pela massa).</p>
-            
+            <p><strong>Werner Karl Heisenberg</strong> (1901 – 1976) foi um físico teórico alemão e um dos pais fundadores da <span class="highlight">Mecânica Quântica</span>. Sua contribuição mais famosa é o <strong>Princípio da Incerteza</strong> (1927), que estabelece um limite fundamental da física: não podemos medir simultaneamente, com precisão absoluta, certas propriedades de uma partícula, como sua posição e seu momento linear.</p>
+
             <div class="formula-box">
                 Δx · Δp ≥ ℏ / 2
             </div>
 
             <p>Em termos simples: quanto mais tentamos fixar o local exato de uma partícula (Δx), menos sabemos sobre a rapidez e a direção para onde ela está indo (Δp).</p>
-        </section>
 
-        <section>
-            <h2>Grandes Feitos</h2>
-            <ul>
-                <li><strong>Mecânica Matricial (1925):</strong> A primeira formulação matemática completa e lógica da mecânica quântica.</li>
-                <li><strong>Prêmio Nobel de Física:</strong> Conquistado com apenas 31 anos de idade.</li>
-                <li><strong>Estrutura Atômica:</strong> Propôs o modelo de que o núcleo atômico é composto especificamente por prótons e nêutrons.</li>
-            </ul>
-        </section>
-
-        <section style="border-left: 3px solid #fbbf24;">
-            <h2 style="border-left-color: #fbbf24; color: #fbbf24;">🐚 Heisenberg na cultura pop</h2>
-            <p>O nome <span class="highlight">Heisenberg</span> transcendeu a física e tornou-se um ícone cultural. Na série <strong>Breaking Bad</strong>, o personagem <strong>Walter White</strong> adota o pseudônimo <em>“Heisenberg”</em> — uma referência direta ao físico, associando a genialidade e o lado sombrio da ciência.</p>
-            <div class="pop-culture-note">
-                <strong>🎬 Curiosidade:</strong> O criador da série, Vince Gilligan, escolheu o nome “Heisenberg” justamente pelo princípio da incerteza, refletindo a imprevisibilidade do protagonista e as consequências incertas de suas escolhas.
+            <div class="image-showcase">
+                <div class="image-card">
+                    <img src="imagens/fisico-heisenberg.jpg" alt="Werner Heisenberg, físico teórico alemão" loading="lazy">
+                    <div class="caption">Werner Heisenberg</div>
+                    <div class="sub-caption">Físico • Nobel 1932</div>
+                </div>
             </div>
-        </section>
 
-        <div class="like-container">
-            <button class="btn-like">
-                ❤️ Deixar um Like <span class="like-count">0</span>
-            </button>
+            <!-- INTERAÇÕES DO POST 1 -->
+            <div class="post-interactions">
+                <button class="btn-like" data-post="1">
+                    <span class="like-icon">❤️</span>
+                    Curtir
+                    <span class="like-count" id="likeCount1">0</span>
+                </button>
+
+                <button class="btn-deslike" data-post="1">
+                    <span class="deslike-icon">👎</span>
+                    Descurtir
+                    <span class="deslike-count" id="deslikeCount1">0</span>
+                </button>
+
+                <span class="post-feedback" id="feedback1"></span>
+            </div>
+        </article>
+
+        <!-- ===== POST 2: WALTER WHITE ===== -->
+        <article id="post2">
+            <div class="post-header">
+                <div class="post-avatar">WW</div>
+                <div>
+                    <div class="post-author">Walter White</div>
+                    <div class="post-date">"Heisenberg" — Breaking Bad</div>
+                </div>
+            </div>
+
+            <h2 style="border-left-color: var(--gold); color: var(--gold);">🐚 Heisenberg na cultura pop</h2>
+            <p>O nome <span class="highlight">Heisenberg</span> transcendeu a física e tornou-se um ícone cultural. Na série <strong>Breaking Bad</strong>, o personagem <strong>Walter White</strong> adota o pseudônimo <em>"Heisenberg"</em> — uma referência direta ao físico, associando a genialidade e o lado sombrio da ciência.</p>
+
+            <div class="pop-culture-note">
+                <strong>🎬 Curiosidade:</strong> O criador da série, Vince Gilligan, escolheu o nome "Heisenberg" justamente pelo princípio da incerteza, refletindo a imprevisibilidade do protagonista e as consequências incertas de suas escolhas.
+            </div>
+
+            <div class="image-showcase">
+                <div class="image-card">
+                    <img src="imagens/walter-withe.jpg" alt="Walter White, personagem de Breaking Bad" loading="lazy">
+                    <div class="caption">Walter White</div>
+                    <div class="sub-caption">"Heisenberg" — Breaking Bad</div>
+                </div>
+            </div>
+
+            <!-- INTERAÇÕES DO POST 2 -->
+            <div class="post-interactions">
+                <button class="btn-like" data-post="2">
+                    <span class="like-icon">❤️</span>
+                    Curtir
+                    <span class="like-count" id="likeCount2">0</span>
+                </button>
+
+                <button class="btn-deslike" data-post="2">
+                    <span class="deslike-icon">👎</span>
+                    Descurtir
+                    <span class="deslike-count" id="deslikeCount2">0</span>
+                </button>
+
+                <span class="post-feedback" id="feedback2"></span>
+            </div>
+        </article>
+
+        <!-- ===== BOTÃO DE RESET GLOBAL ===== -->
+        <div class="reset-container">
+            <button class="btn-reset" id="resetButton">↺ Resetar todas as interações</button>
         </div>
 
     </div>
@@ -341,22 +556,211 @@
     </footer>
 
     <script>
-        // 1. Selecionamos o botão de like da página
-        const botao = document.querySelector('.btn-like');
-        
-        // 2. Criamos a função que vai rodar quando o botão for clicado
-        function botaoClicado() {
-            console.log("fui clicado");
+        // ============================================================
+        //  LÓGICA DE LIKES / DESLIKES COM LIMITE DE 1 INTERAÇÃO POR POST
+        // ============================================================
+
+        // -------- ESTADO GLOBAL --------
+        // Cada post terá seu próprio estado
+        const posts = {
+            1: {
+                likes: 0,
+                deslikes: 0,
+                userInteragiu: false,  // true se o usuário já interagiu (like OU deslike)
+                tipoInteracao: null    // 'like' ou 'deslike'
+            },
+            2: {
+                likes: 0,
+                deslikes: 0,
+                userInteragiu: false,
+                tipoInteracao: null
+            }
+        };
+
+        // -------- SELETORES --------
+        const botoesLike = document.querySelectorAll('.btn-like');
+        const botoesDeslike = document.querySelectorAll('.btn-deslike');
+        const resetButton = document.getElementById('resetButton');
+
+        // -------- FUNÇÕES AUXILIARES --------
+        function atualizarInterface(postId) {
+            const post = posts[postId];
             
-            // 3. Acessamos a tag span que está dentro do botão para mudar o número
-            let texto = botao.querySelector('span');
-            
-            // 4. Incrementamos o valor usando ++
-            texto.textContent++;
+            // Atualiza contadores do post específico
+            document.getElementById(`likeCount${postId}`).textContent = post.likes;
+            document.getElementById(`deslikeCount${postId}`).textContent = post.deslikes;
+
+            // Seleciona os botões deste post
+            const postElement = document.getElementById(`post${postId}`);
+            const btnLike = postElement.querySelector('.btn-like');
+            const btnDeslike = postElement.querySelector('.btn-deslike');
+            const feedback = document.getElementById(`feedback${postId}`);
+
+            // Se o usuário já interagiu, desabilita ambos os botões
+            if (post.userInteragiu) {
+                btnLike.disabled = true;
+                btnDeslike.disabled = true;
+                
+                // Marca visualmente qual foi a interação
+                if (post.tipoInteracao === 'like') {
+                    btnLike.classList.add('liked');
+                    btnDeslike.classList.remove('desliked');
+                    feedback.textContent = '💖 Você curtiu este post!';
+                    feedback.classList.add('show');
+                } else if (post.tipoInteracao === 'deslike') {
+                    btnDeslike.classList.add('desliked');
+                    btnLike.classList.remove('liked');
+                    feedback.textContent = '👎 Você descurtiu este post!';
+                    feedback.classList.add('show');
+                }
+            } else {
+                // Usuário ainda não interagiu
+                btnLike.disabled = false;
+                btnDeslike.disabled = false;
+                btnLike.classList.remove('liked');
+                btnDeslike.classList.remove('desliked');
+                feedback.classList.remove('show');
+            }
+
+            // Atualiza estatísticas globais
+            atualizarEstatisticasGlobais();
         }
 
-        // 5. Adicionamos o "ouvinte" para capturar o clique do usuário
-        botao.addEventListener('click', botaoClicado);
+        function atualizarEstatisticasGlobais() {
+            let totalLikes = 0;
+            let totalDeslikes = 0;
+
+            for (const id in posts) {
+                totalLikes += posts[id].likes;
+                totalDeslikes += posts[id].deslikes;
+            }
+
+            document.getElementById('totalLikes').textContent = totalLikes;
+            document.getElementById('totalDeslikes').textContent = totalDeslikes;
+            document.getElementById('interacoesTotais').textContent = totalLikes + totalDeslikes;
+        }
+
+        function processarLike(postId) {
+            const post = posts[postId];
+
+            // ===== VERIFICAÇÃO DO LIMITE: só permite se NÃO interagiu ainda =====
+            if (post.userInteragiu === false) {
+                // Primeira interação do usuário neste post
+                post.likes++;
+                post.userInteragiu = true;
+                post.tipoInteracao = 'like';
+
+                console.log(`👍 Like registrado no post ${postId}! Total de likes: ${post.likes}`);
+                atualizarInterface(postId);
+                salvarEstado();
+            } else {
+                // Usuário já interagiu - mostra feedback e não faz nada
+                const feedback = document.getElementById(`feedback${postId}`);
+                feedback.textContent = '⚠️ Você já interagiu com este post!';
+                feedback.classList.add('show');
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, 2000);
+                console.log(`⛔ Tentativa de like no post ${postId} bloqueada - usuário já interagiu`);
+            }
+        }
+
+        function processarDeslike(postId) {
+            const post = posts[postId];
+
+            // ===== VERIFICAÇÃO DO LIMITE: só permite se NÃO interagiu ainda =====
+            if (post.userInteragiu === false) {
+                // Primeira interação do usuário neste post
+                post.deslikes++;
+                post.userInteragiu = true;
+                post.tipoInteracao = 'deslike';
+
+                console.log(`👎 Deslike registrado no post ${postId}! Total de deslikes: ${post.deslikes}`);
+                atualizarInterface(postId);
+                salvarEstado();
+            } else {
+                // Usuário já interagiu - mostra feedback e não faz nada
+                const feedback = document.getElementById(`feedback${postId}`);
+                feedback.textContent = '⚠️ Você já interagiu com este post!';
+                feedback.classList.add('show');
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, 2000);
+                console.log(`⛔ Tentativa de deslike no post ${postId} bloqueada - usuário já interagiu`);
+            }
+        }
+
+        function resetarTudo() {
+            if (confirm('Tem certeza que deseja resetar TODAS as interações?')) {
+                for (const id in posts) {
+                    posts[id].likes = 0;
+                    posts[id].deslikes = 0;
+                    posts[id].userInteragiu = false;
+                    posts[id].tipoInteracao = null;
+                }
+                console.log('🔄 Todas as interações foram resetadas!');
+                // Atualiza todos os posts
+                for (const id in posts) {
+                    atualizarInterface(parseInt(id));
+                }
+                localStorage.removeItem('heisenbergPosts');
+            }
+        }
+
+        // -------- PERSISTÊNCIA COM localStorage --------
+        function salvarEstado() {
+            localStorage.setItem('heisenbergPosts', JSON.stringify(posts));
+        }
+
+        function carregarEstado() {
+            const estadoSalvo = localStorage.getItem('heisenbergPosts');
+            if (estadoSalvo) {
+                try {
+                    const estado = JSON.parse(estadoSalvo);
+                    for (const id in estado) {
+                        if (posts[id]) {
+                            posts[id].likes = estado[id].likes || 0;
+                            posts[id].deslikes = estado[id].deslikes || 0;
+                            posts[id].userInteragiu = estado[id].userInteragiu || false;
+                            posts[id].tipoInteracao = estado[id].tipoInteracao || null;
+                        }
+                    }
+                    console.log('📦 Estado carregado do localStorage:', posts);
+                } catch (e) {
+                    console.warn('Erro ao carregar estado:', e);
+                }
+            }
+            // Atualiza a interface para todos os posts
+            for (const id in posts) {
+                atualizarInterface(parseInt(id));
+            }
+        }
+
+        // -------- EVENT LISTENERS --------
+        botoesLike.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const postId = parseInt(this.dataset.post);
+                processarLike(postId);
+            });
+        });
+
+        botoesDeslike.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const postId = parseInt(this.dataset.post);
+                processarDeslike(postId);
+            });
+        });
+
+        resetButton.addEventListener('click', resetarTudo);
+
+        // -------- INICIALIZAÇÃO --------
+        carregarEstado();
+
+        console.log('🚀 Página Werner Heisenberg carregada!');
+        console.log('💡 Cada post permite apenas 1 interação (like OU deslike) por usuário.');
+        console.log('📊 Estado atual:', posts);
     </script>
 
 </body>
