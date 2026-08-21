@@ -1,0 +1,207 @@
+
+        // ============================================================
+        //  LÓGICA DE LIKES / DESLIKES COM LIMITE DE 1 INTERAÇÃO POR POST
+        // ============================================================
+
+        // -------- ESTADO GLOBAL --------
+        // Cada post terá seu próprio estado
+        const posts = {
+            1: {
+                likes: 0,
+                deslikes: 0,
+                userInteragiu: false,  // true se o usuário já interagiu (like OU deslike)
+                tipoInteracao: null    // 'like' ou 'deslike'
+            },
+            2: {
+                likes: 0,
+                deslikes: 0,
+                userInteragiu: false,
+                tipoInteracao: null
+            }
+        };
+
+        // -------- SELETORES --------
+        const botoesLike = document.querySelectorAll('.btn-like');
+        const botoesDeslike = document.querySelectorAll('.btn-deslike');
+        const resetButton = document.getElementById('resetButton');
+
+        // -------- FUNÇÕES AUXILIARES --------
+        function atualizarInterface(postId) {
+            const post = posts[postId];
+            
+            // Atualiza contadores do post específico
+            document.getElementById(`likeCount${postId}`).textContent = post.likes;
+            document.getElementById(`deslikeCount${postId}`).textContent = post.deslikes;
+
+            // Seleciona os botões deste post
+            const postElement = document.getElementById(`post${postId}`);
+            const btnLike = postElement.querySelector('.btn-like');
+            const btnDeslike = postElement.querySelector('.btn-deslike');
+            const feedback = document.getElementById(`feedback${postId}`);
+
+            // Se o usuário já interagiu, desabilita ambos os botões
+            if (post.userInteragiu) {
+                btnLike.disabled = true;
+                btnDeslike.disabled = true;
+                
+                // Marca visualmente qual foi a interação
+                if (post.tipoInteracao === 'like') {
+                    btnLike.classList.add('liked');
+                    btnDeslike.classList.remove('desliked');
+                    feedback.textContent = '💖 Você curtiu este post!';
+                    feedback.classList.add('show');
+                } else if (post.tipoInteracao === 'deslike') {
+                    btnDeslike.classList.add('desliked');
+                    btnLike.classList.remove('liked');
+                    feedback.textContent = '👎 Você descurtiu este post!';
+                    feedback.classList.add('show');
+                }
+            } else {
+                // Usuário ainda não interagiu
+                btnLike.disabled = false;
+                btnDeslike.disabled = false;
+                btnLike.classList.remove('liked');
+                btnDeslike.classList.remove('desliked');
+                feedback.classList.remove('show');
+            }
+
+            // Atualiza estatísticas globais
+            atualizarEstatisticasGlobais();
+        }
+
+        function atualizarEstatisticasGlobais() {
+            let totalLikes = 0;
+            let totalDeslikes = 0;
+
+            for (const id in posts) {
+                totalLikes += posts[id].likes;
+                totalDeslikes += posts[id].deslikes;
+            }
+
+            document.getElementById('totalLikes').textContent = totalLikes;
+            document.getElementById('totalDeslikes').textContent = totalDeslikes;
+            document.getElementById('interacoesTotais').textContent = totalLikes + totalDeslikes;
+        }
+
+        function processarLike(postId) {
+            const post = posts[postId];
+
+            // ===== VERIFICAÇÃO DO LIMITE: só permite se NÃO interagiu ainda =====
+            if (post.userInteragiu === false) {
+                // Primeira interação do usuário neste post
+                post.likes++;
+                post.userInteragiu = true;
+                post.tipoInteracao = 'like';
+
+                console.log(`👍 Like registrado no post ${postId}! Total de likes: ${post.likes}`);
+                atualizarInterface(postId);
+                salvarEstado();
+            } else {
+                // Usuário já interagiu - mostra feedback e não faz nada
+                const feedback = document.getElementById(`feedback${postId}`);
+                feedback.textContent = '⚠️ Você já interagiu com este post!';
+                feedback.classList.add('show');
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, 2000);
+                console.log(`⛔ Tentativa de like no post ${postId} bloqueada - usuário já interagiu`);
+            }
+        }
+
+        function processarDeslike(postId) {
+            const post = posts[postId];
+
+            // ===== VERIFICAÇÃO DO LIMITE: só permite se NÃO interagiu ainda =====
+            if (post.userInteragiu === false) {
+                // Primeira interação do usuário neste post
+                post.deslikes++;
+                post.userInteragiu = true;
+                post.tipoInteracao = 'deslike';
+
+                console.log(`👎 Deslike registrado no post ${postId}! Total de deslikes: ${post.deslikes}`);
+                atualizarInterface(postId);
+                salvarEstado();
+            } else {
+                // Usuário já interagiu - mostra feedback e não faz nada
+                const feedback = document.getElementById(`feedback${postId}`);
+                feedback.textContent = '⚠️ Você já interagiu com este post!';
+                feedback.classList.add('show');
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, 2000);
+                console.log(`⛔ Tentativa de deslike no post ${postId} bloqueada - usuário já interagiu`);
+            }
+        }
+
+        function resetarTudo() {
+            if (confirm('Tem certeza que deseja resetar TODAS as interações?')) {
+                for (const id in posts) {
+                    posts[id].likes = 0;
+                    posts[id].deslikes = 0;
+                    posts[id].userInteragiu = false;
+                    posts[id].tipoInteracao = null;
+                }
+                console.log('🔄 Todas as interações foram resetadas!');
+                // Atualiza todos os posts
+                for (const id in posts) {
+                    atualizarInterface(parseInt(id));
+                }
+                localStorage.removeItem('heisenbergPosts');
+            }
+        }
+
+        // -------- PERSISTÊNCIA COM localStorage --------
+        function salvarEstado() {
+            localStorage.setItem('heisenbergPosts', JSON.stringify(posts));
+        }
+
+        function carregarEstado() {
+            const estadoSalvo = localStorage.getItem('heisenbergPosts');
+            if (estadoSalvo) {
+                try {
+                    const estado = JSON.parse(estadoSalvo);
+                    for (const id in estado) {
+                        if (posts[id]) {
+                            posts[id].likes = estado[id].likes || 0;
+                            posts[id].deslikes = estado[id].deslikes || 0;
+                            posts[id].userInteragiu = estado[id].userInteragiu || false;
+                            posts[id].tipoInteracao = estado[id].tipoInteracao || null;
+                        }
+                    }
+                    console.log('📦 Estado carregado do localStorage:', posts);
+                } catch (e) {
+                    console.warn('Erro ao carregar estado:', e);
+                }
+            }
+            // Atualiza a interface para todos os posts
+            for (const id in posts) {
+                atualizarInterface(parseInt(id));
+            }
+        }
+
+        // -------- EVENT LISTENERS --------
+        botoesLike.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const postId = parseInt(this.dataset.post);
+                processarLike(postId);
+            });
+        });
+
+        botoesDeslike.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const postId = parseInt(this.dataset.post);
+                processarDeslike(postId);
+            });
+        });
+
+        resetButton.addEventListener('click', resetarTudo);
+
+        // -------- INICIALIZAÇÃO --------
+        carregarEstado();
+
+        console.log('🚀 Página Werner Heisenberg carregada!');
+        console.log('💡 Cada post permite apenas 1 interação (like OU deslike) por usuário.');
+        console.log('📊 Estado atual:', posts);
+    
